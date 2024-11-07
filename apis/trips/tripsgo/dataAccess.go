@@ -95,7 +95,7 @@ func ExecuteQuery(query string) (*sql.Rows, error) {
 }
 
 // FirstOrDefault - returns the first row of the result set.
-func FirstOrDefault(query string) (*sql.Row, error) {
+func FirstOrDefault(query string, args ...interface{}) (*sql.Row, error) {
 	connString := fmt.Sprintf("server=%s;database=%s;user id=%s;password=%s;port=%d", *server, *database, *user, *password, *port)
 
 	if *debug {
@@ -120,7 +120,7 @@ func FirstOrDefault(query string) (*sql.Row, error) {
 
 	defer statement.Close()
 
-	row := statement.QueryRow()
+	row := statement.QueryRow(args...)
 
 	return row, nil
 }

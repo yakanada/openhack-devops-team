@@ -17,10 +17,10 @@ func getTripByID(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 
 	//Build Query
-	var query = SelectTripByIDQuery(params["tripID"])
+	var query, args = SelectTripByIDQuery(params["tripID"])
 
 	//Execute Query
-	row, err := FirstOrDefault(query)
+	row, err := FirstOrDefault(query, args...)
 
 	if err != nil {
 		var msg = "getTripsByID - Error while retrieving trip from database"
